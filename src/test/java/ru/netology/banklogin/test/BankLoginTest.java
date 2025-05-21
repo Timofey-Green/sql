@@ -1,15 +1,13 @@
 package ru.netology.banklogin.test;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.banklogin.data.DataHelper;
 import ru.netology.banklogin.data.SQLHelper;
 import ru.netology.banklogin.page.LoginPage;
 
 
 import static com.codeborne.selenide.Selenide.open;
+import static ru.netology.banklogin.data.SQLHelper.cleanAuthCodes;
 import static ru.netology.banklogin.data.SQLHelper.cleanDataBase;
 
 public class BankLoginTest {
@@ -18,12 +16,17 @@ public class BankLoginTest {
 
     @AfterAll
     static void tearDownAll() {
-        cleanDataBase();
+         cleanDataBase();
+    }
+
+    @AfterEach
+    void tearDown() {
+        cleanAuthCodes();
     }
 
 
-    @AfterEach
 
+    @BeforeEach
     void setUp() {
         loginPage = open("http://localhost:9999" , LoginPage.class);
     }
